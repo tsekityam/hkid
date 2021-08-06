@@ -1,0 +1,27 @@
+{
+  "name": "hkid",
+  "version": "1.0.0",
+  "description": "Generate and Validate HKID",
+  "main": "lib/index.js",
+  "repository": "https://github.com/tsekityam/hkid.git",
+  "author": "Tse Kit Yam <tsekityam@users.noreply.github.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@types/jest": "^26.0.24",
+    "codecov": "^3.8.3",
+    "mocha": "^9.0.3",
+    "nyc": "^15.1.0",
+    "source-map-support": "^0.5.19",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "nyc mocha",
+    "posttest": "nyc report --reporter=text-lcov | codecov --pipe"
+  },
+  "keywords": [
+    "hkid"
+  ]
+}
