@@ -11,11 +11,35 @@ export const validate = (hkid: string) => {
     candidate.unshift(" ");
   }
 
+  if (checkPrefix(candidate) === false) {
+    return false;
+  }
+
   try {
     return candidate[candidate.length - 1] === getCheckDigit(candidate);
   } catch {
     return false;
   }
+};
+
+const checkPrefix = (candidate: string[]): boolean => {
+  /*
+   * Known single-letter prefixes are ABCDEGHKMPRVYZ and double-letter prefixes are XA, XD, XE, XG.
+   * source: https://webb-site.com/dbpub/idcheck.asp
+   */
+  if (candidate[0] === " ") {
+    return "ABCDEGHKMPRVYZ"
+      .toLowerCase()
+      .split("")
+      .some((char) => char === candidate[1]);
+  } else if (candidate[0] === "X".toLowerCase()) {
+    return "ADEG"
+      .toLowerCase()
+      .split("")
+      .some((char) => char === candidate[1]);
+  }
+
+  return false;
 };
 
 const getCheckDigit = (candidate: string[]): string => {

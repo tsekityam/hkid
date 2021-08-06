@@ -4,15 +4,18 @@ import { validate } from "../lib";
 describe("hkid", function () {
   describe("validate", function () {
     [
-      { hkid: "A1234", expected: false }, // too short
-      { hkid: "A123456789", expected: false }, // too long
-      { hkid: "L555555[0]", expected: false }, // invalid char
-      { hkid: "ABCD123(4)", expected: false }, // too many leading alphabets 
-      { hkid: "AY987654(A)", expected: false },
-      { hkid: "G123456(A)", expected: true },
-      { hkid: "L555555(0)", expected: true },
-      { hkid: "AB987654(3)", expected: true },
+      { hkid: "A1234", expected: false }, // incorrect length
+      { hkid: "A123456789", expected: false }, // incorrect length
+      { hkid: "L555555[0]", expected: false }, // invalid char `[`
+      { hkid: "g323@22a", expected: false }, // invalid char `@`
+      { hkid: "AB987654(3)", expected: false }, // invalid prefix `AB`
+      { hkid: "K123BBB(3)", expected: false }, // invalid pattern `BBB`
+      { hkid: "L555555(0)", expected: false }, // invalid prefix `L`
       { hkid: "C123456(9)", expected: true },
+      { hkid: "C1234569", expected: true },
+      { hkid: "XG1239876", expected: true },
+      { hkid: "P7822980", expected: true },
+      { hkid: "g323222a", expected: true },
     ].forEach((param) => {
       const { hkid, expected } = param;
       const result = validate(hkid);
