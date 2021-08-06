@@ -1,4 +1,4 @@
-export const validate = (hkid: string) => {
+export const validate = (hkid: string): boolean => {
   const candidate = hkid
     .replace("(", "")
     .replace(")", "")
@@ -43,7 +43,7 @@ const checkPrefix = (candidate: string[]): boolean => {
 };
 
 const getCheckDigit = (candidate: string[]): string => {
-  var checkDigit = candidate.reduce(
+  let checkDigit = candidate.reduce(
     (previousValue, currentValue, currentIndex, array) => {
       if (currentIndex === array.length - 1) {
         return previousValue;
