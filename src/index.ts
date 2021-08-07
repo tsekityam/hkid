@@ -31,7 +31,7 @@ export const random = (): string => {
 
   const digit = Math.random().toString().substr(2, 6);
 
-  const candidate: string = `${prefix}${digit}`;
+  const candidate = `${prefix}${digit}`;
 
   const checkDigit = calculateCheckDigit(`${candidate}`);
 
@@ -74,7 +74,7 @@ const calculateCheckDigit = (candidate: string): string => {
     .split("")
     .reduce((previousValue, currentValue, currentIndex) => {
       const weight = 9 - currentIndex;
-      const value = getValue(currentValue, currentIndex);
+      const value = getValue(currentValue);
 
       console.log(weight, value, currentValue, currentIndex);
 
@@ -93,7 +93,7 @@ const calculateCheckDigit = (candidate: string): string => {
 const A = "a".charCodeAt(0);
 const Z = "z".charCodeAt(0);
 
-const getValue = (char: string, index: number): number => {
+const getValue = (char: string): number => {
   const charCode = char.toLowerCase().charCodeAt(0);
 
   if (char === " ") {
