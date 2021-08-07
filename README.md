@@ -25,5 +25,8 @@ console.log(hkid.validate("h349781(1)")); // true, case doesn't matter
 console.log(hkid.validate("H3497811")); // true, brackets is optional
 ```
 
+[CodeSandbox](https://codesandbox.io/s/ts-example-1rqhl)
+
 ## License
+
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftsekityam%2Fhkid.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftsekityam%2Fhkid?ref=badge_large)
