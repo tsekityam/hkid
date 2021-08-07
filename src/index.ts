@@ -16,33 +16,57 @@ export const validate = (hkid: string): boolean => {
   }
 
   try {
-    return candidate[candidate.length - 1] === getCheckDigit(candidate);
+    const checkDigit = candidate[candidate.length - 1];
+    return checkDigit === calculateCheckDigit(candidate);
   } catch {
     return false;
   }
 };
 
-const checkPrefix = (candidate: string[]): boolean => {
-  /*
-   * Known single-letter prefixes are ABCDEGHKMPRVYZ and double-letter prefixes are XA, XD, XE, XG.
-   * source: https://webb-site.com/dbpub/idcheck.asp
-   */
-  if (candidate[0] === " ") {
-    return "ABCDEGHKMPRVYZ"
-      .toLowerCase()
-      .split("")
-      .some((char) => char === candidate[1]);
-  } else if (candidate[0] === "X".toLowerCase()) {
-    return "ADEG"
-      .toLowerCase()
-      .split("")
-      .some((char) => char === candidate[1]);
-  }
+export const random = (): string => {
+  let randomIndex = Math.floor(Math.random() * knownPrefixes.length);
+  const prefix = knownPrefixes[randomIndex];
 
-  return false;
+  const digit = Math.random().toString().substr(2, 6);
+
+  const candidate: string = `${prefix}${digit}`.toLocaleLowerCase();
+
+  const checkDigit = calculateCheckDigit([...candidate.split(""), "0"]);
+
+  return `${candidate}${checkDigit}`.toUpperCase().trim();
 };
 
-const getCheckDigit = (candidate: string[]): string => {
+/*
+ * Known single-letter prefixes are ABCDEGHKMPRVYZ and double-letter prefixes are XA, XD, XE, XG.
+ * source: https://webb-site.com/dbpub/idcheck.asp
+ */
+const knownPrefixes: string[] = [
+  " A",
+  " B",
+  " C",
+  " D",
+  " E",
+  " G",
+  " H",
+  " K",
+  " M",
+  " P",
+  " R",
+  " V",
+  " Y",
+  " Z",
+  "XA",
+  "XD",
+  "XE",
+  "XG",
+];
+
+const checkPrefix = (candidate: string[]): boolean => {
+  const prefix = candidate.slice(0, 2).join("");
+  return knownPrefixes.some((value) => value.toLowerCase() === prefix);
+};
+
+const calculateCheckDigit = (candidate: string[]): string => {
   let checkDigit = candidate.reduce(
     (previousValue, currentValue, currentIndex, array) => {
       if (currentIndex === array.length - 1) {

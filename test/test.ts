@@ -1,5 +1,5 @@
 import assert from "assert";
-import { validate } from "../lib";
+import { random, validate } from "../lib";
 
 describe("hkid", function () {
   describe("validate", function () {
@@ -11,16 +11,34 @@ describe("hkid", function () {
       { hkid: "AB987654(3)", expected: false }, // invalid prefix `AB`
       { hkid: "K123BBB(3)", expected: false }, // invalid pattern `BBB`
       { hkid: "L555555(0)", expected: false }, // invalid prefix `L`
-      { hkid: "C123456(9)", expected: true },
-      { hkid: "C1234569", expected: true },
-      { hkid: "XG1239876", expected: true },
-      { hkid: "P7822980", expected: true },
-      { hkid: "g323222a", expected: true },
+      { hkid: "A5632440", expected: false }, // incorrect check digit `0`
+      { hkid: "D5355770", expected: true }, // valid hkid, verified by https://webb-site.com/dbpub/idcheck.asp
+      { hkid: "Y477744a", expected: true }, // valid hkid, verified by https://webb-site.com/dbpub/idcheck.asp
+      { hkid: "P067688(1)", expected: true }, // valid hkid, verified by https://webb-site.com/dbpub/idcheck.asp
+      { hkid: "Y8312883", expected: true }, // valid hkid, verified by https://webb-site.com/dbpub/idcheck.asp
+      { hkid: "b6518406", expected: true }, // valid hkid, verified by https://webb-site.com/dbpub/idcheck.asp
     ].forEach((param) => {
       const { hkid, expected } = param;
       const result = validate(hkid);
 
       it(`should return ${expected} for validate(${hkid})`, function () {
+        assert.equal(result, expected);
+      });
+    });
+  });
+
+  describe("random", function () {
+    [
+      { hkid: random(), expected: true },
+      { hkid: random(), expected: true },
+      { hkid: random(), expected: true },
+      { hkid: random(), expected: true },
+      { hkid: random(), expected: true },
+    ].forEach((param) => {
+      const { hkid, expected } = param;
+      const result = validate(hkid);
+
+      it(`should return ${expected} for validate(random()) when random() is ${hkid}`, function () {
         assert.equal(result, expected);
       });
     });
