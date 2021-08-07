@@ -24,7 +24,7 @@ export const validate = (hkid: string): boolean => {
 };
 
 export const random = (): string => {
-  let randomIndex = Math.floor(Math.random() * knownPrefixes.length);
+  const randomIndex = Math.floor(Math.random() * knownPrefixes.length);
   const prefix = knownPrefixes[randomIndex];
 
   const digit = Math.random().toString().substr(2, 6);
