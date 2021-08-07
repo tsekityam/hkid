@@ -1,23 +1,25 @@
 export const validate = (hkid: string): boolean => {
-  const candidate = hkid
-    .replace("(", "")
-    .replace(")", "")
-    .toLowerCase()
-    .split("");
+  const regexp = `^([a-zA-Z]{1,2})([0-9]{6})(([0-9aA])|\\(([0-9aA])\\))$`;
+  const found = hkid.match(regexp);
 
-  if (candidate.length !== 9 && candidate.length !== 8) {
+  if (!found) {
     return false;
-  } else if (candidate.length === 8) {
-    candidate.unshift(" ");
   }
+  let prefix = found[1];
+  const content = found[2];
+  const checkDigit = found[4] ?? found[5];
 
-  if (checkPrefix(candidate) === false) {
+  if (prefix.length === 1) prefix = ` ${prefix}`;
+
+  if (checkPrefix(prefix) === false) {
     return false;
   }
 
   try {
-    const checkDigit = candidate[candidate.length - 1];
-    return checkDigit === calculateCheckDigit(candidate);
+    return (
+      checkDigit.toLowerCase() ===
+      calculateCheckDigit(`${prefix}${content}`).toLowerCase()
+    );
   } catch {
     return false;
   }
@@ -29,9 +31,9 @@ export const random = (): string => {
 
   const digit = Math.random().toString().substr(2, 6);
 
-  const candidate: string = `${prefix}${digit}`.toLocaleLowerCase();
+  const candidate: string = `${prefix}${digit}`;
 
-  const checkDigit = calculateCheckDigit([...candidate.split(""), "0"]);
+  const checkDigit = calculateCheckDigit(`${candidate}`);
 
   return `${candidate}${checkDigit}`.toUpperCase().trim();
 };
@@ -61,25 +63,23 @@ const knownPrefixes: string[] = [
   "XG",
 ];
 
-const checkPrefix = (candidate: string[]): boolean => {
-  const prefix = candidate.slice(0, 2).join("");
-  return knownPrefixes.some((value) => value.toLowerCase() === prefix);
+const checkPrefix = (prefix: string): boolean => {
+  return knownPrefixes.some(
+    (value) => value.toLowerCase() === prefix.toLowerCase()
+  );
 };
 
-const calculateCheckDigit = (candidate: string[]): string => {
-  let checkDigit = candidate.reduce(
-    (previousValue, currentValue, currentIndex, array) => {
-      if (currentIndex === array.length - 1) {
-        return previousValue;
-      }
-
-      const weight = array.length - currentIndex;
+const calculateCheckDigit = (candidate: string): string => {
+  let checkDigit = candidate
+    .split("")
+    .reduce((previousValue, currentValue, currentIndex) => {
+      const weight = 9 - currentIndex;
       const value = getValue(currentValue, currentIndex);
 
+      console.log(weight, value, currentValue, currentIndex);
+
       return previousValue + ((weight * value) % 11);
-    },
-    0
-  );
+    }, 0);
 
   checkDigit = checkDigit % 11;
 
@@ -94,18 +94,14 @@ const A = "a".charCodeAt(0);
 const Z = "z".charCodeAt(0);
 
 const getValue = (char: string, index: number): number => {
-  const charCode = char.charCodeAt(0);
+  const charCode = char.toLowerCase().charCodeAt(0);
 
-  if (index <= 1) {
-    if (char === " ") {
-      return 36;
-    } else if (charCode >= A && charCode <= Z) {
-      return charCode - A + 10;
-    }
-  } else if (index <= 8) {
-    if (charCode >= 48 && charCode <= 57) {
-      return parseInt(char);
-    }
+  if (char === " ") {
+    return 36;
+  } else if (!isNaN(parseInt(char))) {
+    return parseInt(char);
+  } else if (charCode >= A && charCode <= Z) {
+    return charCode - A + 10;
   }
 
   throw Error();
