@@ -19,10 +19,10 @@ import * as hkid from "hkid";
 console.log(hkid.random()); // "H3497811"
 
 // validate HKID
-console.log(hkid.validate("h349781(0)")); // false
 console.log(hkid.validate("H3497811")); // true
-console.log(hkid.validate("h349781(1)")); // true, case doesn't matter
-console.log(hkid.validate("H349781(1)")); // true, brackets is optional
+console.log(hkid.validate("h3497811")); // true
+console.log(hkid.validate("H349781(1)")); // true
+console.log(hkid.validate("H3497810")); // false
 ```
 
 [CodeSandbox](https://codesandbox.io/s/ts-example-1rqhl)
