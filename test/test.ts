@@ -21,7 +21,7 @@ describe("hkid", function () {
       const { candidate, expected } = param;
       const result = hkid.validate(candidate);
 
-      it(`should return ${expected} for validate(${hkid})`, function () {
+      it(`should return ${expected} for validate(${candidate})`, function () {
         assert.equal(result, expected);
       });
     });
@@ -38,7 +38,7 @@ describe("hkid", function () {
       const { candidate, expected } = param;
       const result = hkid.validate(candidate);
 
-      it(`should return ${expected} for validate(hkid.random()) when random() is ${hkid}`, function () {
+      it(`should return ${expected} for validate(hkid.random()) when random() is ${candidate}`, function () {
         assert.equal(result, expected);
       });
     });
