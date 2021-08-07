@@ -6,6 +6,24 @@ Generate and Validate HKID
 [![codecov](https://codecov.io/gh/tsekityam/hkid/branch/main/graph/badge.svg?token=34ZuXbF3md)](https://codecov.io/gh/tsekityam/hkid)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftsekityam%2Fhkid.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftsekityam%2Fhkid?ref=badge_shield)
 
+## Installation
+
+`yarn add hkid`
+
+## Usage
+
+```ts
+var hkid = require("hkid");
+
+// generate valid HKID randomly
+console.log(hkid.random());
+
+// validate HKID
+console.log(hkid.validate("h349781(0)")); // false
+console.log(hkid.validate("H349781(1)")); // true
+console.log(hkid.validate("h349781(1)")); // true, case doesn't matter
+console.log(hkid.validate("H3497811")); // true, brackets is optional
+```
 
 ## License
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftsekityam%2Fhkid.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftsekityam%2Fhkid?ref=badge_large)
