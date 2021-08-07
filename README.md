@@ -16,13 +16,13 @@ Generate and Validate HKID
 import * as hkid from "hkid";
 
 // generate valid HKID randomly
-console.log(hkid.random());
+console.log(hkid.random()); // "H3497811"
 
 // validate HKID
 console.log(hkid.validate("h349781(0)")); // false
-console.log(hkid.validate("H349781(1)")); // true
+console.log(hkid.validate("H3497811")); // true
 console.log(hkid.validate("h349781(1)")); // true, case doesn't matter
-console.log(hkid.validate("H3497811")); // true, brackets is optional
+console.log(hkid.validate("H349781(1)")); // true, brackets is optional
 ```
 
 [CodeSandbox](https://codesandbox.io/s/ts-example-1rqhl)
