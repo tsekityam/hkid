@@ -76,8 +76,6 @@ const calculateCheckDigit = (candidate: string): string => {
       const weight = 9 - currentIndex;
       const value = getValue(currentValue);
 
-      console.log(weight, value, currentValue, currentIndex);
-
       return previousValue + ((weight * value) % 11);
     }, 0);
 
