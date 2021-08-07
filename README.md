@@ -13,7 +13,7 @@ Generate and Validate HKID
 ## Usage
 
 ```ts
-var hkid = require("hkid");
+import * as hkid from "hkid";
 
 // generate valid HKID randomly
 console.log(hkid.random());
