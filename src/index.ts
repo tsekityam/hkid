@@ -1,6 +1,6 @@
 export const validate = (hkid: string): boolean => {
-  const regexp = `^([a-zA-Z]{1,2})([0-9]{6})(([0-9aA])|\\(([0-9aA])\\))$`;
-  const found = hkid.match(regexp);
+  const regexp = `^([A-Z]{1,2})([0-9]{6})(([0-9A])|\\(([0-9A])\\))$`;
+  const found = hkid.toUpperCase().match(regexp);
 
   if (!found) {
     return false;
@@ -17,8 +17,8 @@ export const validate = (hkid: string): boolean => {
 
   try {
     return (
-      checkDigit.toLowerCase() ===
-      calculateCheckDigit(`${prefix}${content}`).toLowerCase()
+      checkDigit ===
+      calculateCheckDigit(`${prefix}${content}`)
     );
   } catch {
     return false;
@@ -65,7 +65,7 @@ const knownPrefixes: string[] = [
 
 const checkPrefix = (prefix: string): boolean => {
   return knownPrefixes.some(
-    (value) => value.toLowerCase() === prefix.toLowerCase()
+    (value) => value === prefix
   );
 };
 
@@ -85,14 +85,14 @@ const calculateCheckDigit = (candidate: string): string => {
     checkDigit = 11 - checkDigit;
   }
 
-  return `${checkDigit === 10 ? "a" : checkDigit}`;
+  return `${checkDigit === 10 ? "A" : checkDigit}`;
 };
 
-const A = "a".charCodeAt(0);
-const Z = "z".charCodeAt(0);
+const A = "A".charCodeAt(0);
+const Z = "Z".charCodeAt(0);
 
 const getValue = (char: string): number => {
-  const charCode = char.toLowerCase().charCodeAt(0);
+  const charCode = char.charCodeAt(0);
 
   if (char === " ") {
     return 36;
