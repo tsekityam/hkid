@@ -16,10 +16,7 @@ export const validate = (hkid: string): boolean => {
   }
 
   try {
-    return (
-      checkDigit ===
-      calculateCheckDigit(`${prefix}${content}`)
-    );
+    return checkDigit === calculateCheckDigit(`${prefix}${content}`);
   } catch {
     return false;
   }
@@ -64,9 +61,7 @@ const knownPrefixes: string[] = [
 ];
 
 const checkPrefix = (prefix: string): boolean => {
-  return knownPrefixes.some(
-    (value) => value === prefix
-  );
+  return knownPrefixes.some((value) => value === prefix);
 };
 
 const calculateCheckDigit = (candidate: string): string => {
