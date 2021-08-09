@@ -31,6 +31,9 @@
     "test": "nyc mocha",
     "posttest": "nyc report --reporter=text-lcov | codecov --pipe"
   },
+  "files": [
+    "./dist"
+  ],
   "keywords": [
     "hkid"
   ]
