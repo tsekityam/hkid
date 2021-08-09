@@ -1,6 +1,6 @@
 {
   "name": "hkid",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Generate and Validate HKID",
   "main": "dist/index.js",
   "repository": "https://github.com/tsekityam/hkid.git",
