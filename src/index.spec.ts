@@ -1,5 +1,5 @@
 import assert from "assert";
-import * as hkid from "../src";
+import * as hkid from ".";
 
 describe("hkid", function () {
   describe("validate", function () {
