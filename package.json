@@ -32,7 +32,7 @@
     "posttest": "nyc report --reporter=text-lcov | codecov --pipe"
   },
   "files": [
-    "./dist"
+    "dist"
   ],
   "keywords": [
     "hkid"
