@@ -3,7 +3,7 @@
   "compilerOptions": {
     "declaration": true,
     "outDir": "./dist",
-    "removeComments": true,
+    "removeComments": true
   },
   "exclude": ["**/test.ts", "./dist"]
 }
