@@ -93,5 +93,5 @@ const getValue = (char: string): number => {
     return charCode - A + 10;
   }
 
-  throw Error();
+  throw new Error();
 };

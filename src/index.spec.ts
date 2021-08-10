@@ -1,5 +1,7 @@
 import assert from "assert";
-import * as hkid from ".";
+import rewire from "rewire";
+
+const hkid = rewire(".");
 
 describe("hkid", function () {
   describe("validate", function () {
@@ -22,7 +24,7 @@ describe("hkid", function () {
       const { candidate, expected } = param;
       const result = hkid.validate(candidate);
 
-      it(`should return ${expected} for validate(${candidate})`, function () {
+      it(`should return ${expected} for validate("${candidate}")`, function () {
         assert.equal(result, expected);
       });
     });
@@ -39,9 +41,38 @@ describe("hkid", function () {
       const { candidate, expected } = param;
       const result = hkid.validate(candidate);
 
-      it(`should return ${expected} for validate(hkid.random()) when random() is ${candidate}`, function () {
+      it(`should return ${expected} for validate(hkid.random()) where random() is ${candidate}`, function () {
         assert.equal(result, expected);
       });
     });
+  });
+});
+
+describe("__private__", function () {
+  const getValue = hkid.__get__("getValue");
+
+  describe("getValue", function () {
+    [
+      { candidate: "5", expected: 5 },
+      { candidate: "A", expected: 10 },
+      { candidate: " ", expected: 36 },
+    ].forEach((param) => {
+      const { candidate, expected } = param;
+      const result = getValue(candidate);
+
+      it(`should return ${expected} for getValue("${candidate}")`, function () {
+        assert.equal(result, expected);
+      });
+    });
+
+    [{ candidate: "@" }, { candidate: "a" }, { candidate: "" }].forEach(
+      (param) => {
+        const { candidate } = param;
+
+        it(`should throw error for getValue("${candidate}")`, function () {
+          assert.throws(() => getValue(candidate));
+        });
+      }
+    );
   });
 });
