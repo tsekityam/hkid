@@ -15,11 +15,7 @@ export const validate = (hkid: string): boolean => {
     return false;
   }
 
-  try {
-    return checkDigit === calculateCheckDigit(`${prefix}${content}`);
-  } catch {
-    return false;
-  }
+  return checkDigit === calculateCheckDigit(`${prefix}${content}`);
 };
 
 export const random = (): string => {
@@ -97,5 +93,5 @@ const getValue = (char: string): number => {
     return charCode - A + 10;
   }
 
-  throw Error();
+  throw new Error();
 };
