@@ -3,6 +3,7 @@
   "version": "1.0.3",
   "description": "Generate and Validate HKID",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": "https://github.com/tsekityam/hkid.git",
   "author": "Tse Kit Yam <tsekityam@users.noreply.github.com>",
   "license": "MIT",
