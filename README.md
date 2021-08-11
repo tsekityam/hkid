@@ -26,7 +26,7 @@ console.log(hkid.validate("h349781(1)")); // true
 console.log(hkid.validate("H3497810")); // false
 ```
 
-[CodeSandbox](https://codesandbox.io/s/ts-example-1rqhl)
+[CodeSandbox](https://codesandbox.io/s/ts-example-ch7zj)
 
 ## License
 
