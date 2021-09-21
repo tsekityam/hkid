@@ -19,7 +19,7 @@ describe("hkid", function () {
       { candidate: "P067688(1)", expected: true }, // valid hkid, verified by https://webb-site.com/dbpub/idcheck.asp
       { candidate: "Y8312883", expected: true }, // valid hkid, verified by https://webb-site.com/dbpub/idcheck.asp
       { candidate: "b6518406", expected: true }, // valid hkid, verified by https://webb-site.com/dbpub/idcheck.asp
-      { candidate: "WX231359", expected: true }, // valid hkid, verified by https://webb-site.com/dbpub/idcheck.asp
+      { candidate: "WX2313594", expected: true }, // valid hkid, verified by https://webb-site.com/dbpub/idcheck.asp
     ].forEach((param) => {
       const { candidate, expected } = param;
       const result = hkid.validate(candidate);
