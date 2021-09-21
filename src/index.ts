@@ -5,11 +5,9 @@ export const validate = (hkid: string): boolean => {
   if (!found) {
     return false;
   }
-  let prefix = found[1];
+  const prefix = found[1];
   const content = found[2];
   const checkDigit = found[4] ?? found[5];
-
-  if (prefix.length === 1) prefix = ` ${prefix}`;
 
   if (checkPrefix(prefix) === false) {
     return false;
@@ -32,39 +30,34 @@ export const random = (): string => {
 };
 
 /*
- * Known single-letter prefixes are ABCDEGHKMPRVYZ and double-letter prefixes are XA, XD, XE, XG.
- * source: https://webb-site.com/dbpub/idcheck.asp
+ * source: https://accessinfo.hk/en/request/you_guan_xiang_gang_shen_fen_zhe_2
  */
 const knownPrefixes: string[] = [
-  " A",
-  " B",
-  " C",
-  " D",
-  " E",
-  " F",
-  " G",
-  " H",
-  " J",
-  " K",
-  " L",
-  " M",
-  " N",
-  " P",
-  " R",
-  " S",
-  " T",
-  " V",
-  " W",
-  " Y",
-  " Z",
-  "EC",
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "P",
+  "R",
+  "S",
+  "T",
+  "V",
+  "W",
+  "Y",
+  "Z",
   "WX",
   "XA",
   "XB",
   "XC",
-  "XD",
-  "XE",
-  "XG",
 ];
 
 const checkPrefix = (prefix: string): boolean => {
@@ -72,7 +65,7 @@ const checkPrefix = (prefix: string): boolean => {
 };
 
 const calculateCheckDigit = (candidate: string): string => {
-  let checkDigit = candidate
+  let checkDigit = (candidate.length === 8 ? candidate : ` ${candidate}`)
     .split("")
     .reduce((previousValue, currentValue, currentIndex) => {
       const weight = 9 - currentIndex;
