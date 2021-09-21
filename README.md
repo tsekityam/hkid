@@ -30,6 +30,11 @@ console.log(hkid.validate("H3497810")); // false
 
 [CodeSandbox](https://codesandbox.io/s/ts-example-ch7zj)
 
+## References
+
+- Known prefixes of HKID
+  https://accessinfo.hk/en/request/you_guan_xiang_gang_shen_fen_zhe_2
+
 ## License
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftsekityam%2Fhkid.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftsekityam%2Fhkid?ref=badge_large)
