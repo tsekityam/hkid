@@ -1,4 +1,10 @@
-export const validate = (hkid: string): boolean => {
+interface IValidationOption {
+  checkPrefix?: boolean;
+}
+
+export const validate = (hkid: string, option?: IValidationOption): boolean => {
+  const shouldCheckPrefix = option?.checkPrefix ?? false;
+
   const regexp = `^([A-Z]{1,2})([0-9]{6})(([0-9A])|\\(([0-9A])\\))$`;
   const found = hkid.toUpperCase().match(regexp);
 
@@ -9,7 +15,7 @@ export const validate = (hkid: string): boolean => {
   const content = found[2];
   const checkDigit = found[4] ?? found[5];
 
-  if (checkPrefix(prefix) === false) {
+  if (shouldCheckPrefix === true && checkPrefix(prefix) === false) {
     return false;
   }
 

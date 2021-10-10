@@ -16,16 +16,34 @@ Generate and Validate HKID
 
 ```ts
 import * as hkid from "hkid";
+```
 
-// generate valid HKID randomly
+### `random()`
+
+generate valid HKID randomly
+
+```ts
 console.log(hkid.random()); // H3497811
+```
 
-// validate HKID
+### `validate(candidate: string, option?: { checkPrefix?: boolean})`
+
+validate HKID
+
+- `checkPrefix`: check candidate against [the known prefix list](./src/index.ts#L38-L67). If the prefix of candidate is not in the list, consider it as validation failure. _(default: false)_
+
+  **Note: the known prefix list may be incomplete, so false negative may be returned if `checkPrefix` is set to `true`.**
+
+```ts
 console.log(hkid.validate("H3497811")); // true
 console.log(hkid.validate("h3497811")); // true
 console.log(hkid.validate("H349781(1)")); // true
-console.log(hkid.validate("h349781(1)")); // true
+
 console.log(hkid.validate("H3497810")); // false
+
+console.log(hkid.validate("YK1597716"); // true
+console.log(hkid.validate("YK1597716", { checkPrefix: false})); // true
+console.log(hkid.validate("YK1597716", { checkPrefix: true})); // false
 ```
 
 [CodeSandbox](https://codesandbox.io/s/ts-example-ch7zj)
@@ -33,7 +51,7 @@ console.log(hkid.validate("H3497810")); // false
 ## References
 
 - [有關香港身份證號碼的特殊英文字頭所代表的意思和發出時間](https://accessinfo.hk/en/request/you_guan_xiang_gang_shen_fen_zhe_2)
-  
+
 ## License
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftsekityam%2Fhkid.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftsekityam%2Fhkid?ref=badge_large)
