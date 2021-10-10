@@ -41,7 +41,7 @@ console.log(hkid.validate("H349781(1)")); // true
 
 console.log(hkid.validate("H3497810")); // false
 
-console.log(hkid.validate("YK1597716"); // true
+console.log(hkid.validate("YK1597716")); // true
 console.log(hkid.validate("YK1597716", { checkPrefix: false})); // true
 console.log(hkid.validate("YK1597716", { checkPrefix: true})); // false
 ```
