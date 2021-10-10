@@ -30,7 +30,7 @@ console.log(hkid.random()); // H3497811
 
 validate HKID
 
-- `checkPrefix`: check candidate against the known [prefixes](./src/index.ts#L38-L67). If the prefix of candidate not in the list, consider it as validation failure. _(default: false)_
+- `checkPrefix`: check candidate against [the known prefix list](./src/index.ts#L38-L67). If the prefix of candidate is not in the list, consider it as validation failure. _(default: false)_
 
   **Note: the known prefix list may be incomplete, so false negative may be returned if `checkPrefix` is set to `true`.**
 
