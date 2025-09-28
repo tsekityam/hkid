@@ -26,13 +26,9 @@ jobs:
       - run: yarn
       - run: yarn lint
       - run: yarn test
-      - name: Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage/lcov.info
-          verbose: true
+      - name: Print lcov.info
+        run: cat coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
