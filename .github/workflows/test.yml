@@ -26,14 +26,7 @@ jobs:
       - run: npm i
       - run: npm run lint
       - run: npm test
-      - name: Verify coverage file
-        run: |
-          echo "Workspace: $(pwd)"
-          echo "List coverage dir:"
-          ls -la coverage || echo "coverage directory does not exist"
-          echo "Try head coverage/lcov.info:"
-          head -n 20 coverage/lcov.info || echo "lcov.info missing"
-          head -n 20 README.md || echo "README.md missing"
+      - run: npm run test:coverage
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
