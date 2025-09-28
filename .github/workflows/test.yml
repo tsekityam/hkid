@@ -33,6 +33,7 @@ jobs:
           ls -la coverage || echo "coverage directory does not exist"
           echo "Try head coverage/lcov.info:"
           head -n 20 coverage/lcov.info || echo "lcov.info missing"
+          head -n 20 README.md || echo "README.md missing"
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
