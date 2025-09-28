@@ -1,10 +1,7 @@
-import assert from "assert";
-import rewire from "rewire";
+import * as hkid from "../src/index";
 
-const hkid = rewire("../src/index");
-
-describe("hkid", function () {
-  describe("validate", function () {
+describe("hkid", () => {
+  describe("validate", () => {
     [
       { candidate: "A1234", expected: false }, // incorrect length
       { candidate: "A123456789", expected: false }, // incorrect length
@@ -24,13 +21,13 @@ describe("hkid", function () {
       const { candidate, expected } = param;
       const result = hkid.validate(candidate);
 
-      it(`should return ${expected} for validate("${candidate}")`, function () {
-        assert.equal(result, expected);
+      it(`should return ${expected} for validate("${candidate}")`, () => {
+        expect(result).toBe(expected);
       });
     });
   });
 
-  describe("validate, { checkPrefix: true }", function () {
+  describe("validate, { checkPrefix: true }", () => {
     [
       { candidate: "YK1597716", expected: false }, // invalid prefix `YK`
       { candidate: "O123456(1)", expected: false }, // invalid prefix `O`
@@ -38,13 +35,13 @@ describe("hkid", function () {
       const { candidate, expected } = param;
       const result = hkid.validate(candidate, { checkPrefix: true });
 
-      it(`should return ${expected} for validate("${candidate}", { checkPrefix: true })`, function () {
-        assert.equal(result, expected);
+      it(`should return ${expected} for validate("${candidate}", { checkPrefix: true })`, () => {
+        expect(result).toBe(expected);
       });
     });
   });
 
-  describe("validate, { checkPrefix: false }", function () {
+  describe("validate, { checkPrefix: false }", () => {
     [
       { candidate: "YK1597716", expected: true }, // invalid prefix `YK`, however, verified by https://webb-site.com/dbpub/idcheck.asp
       { candidate: "O123456(1)", expected: true }, // invalid prefix `O`, however, verified by https://webb-site.com/dbpub/idcheck.asp
@@ -52,13 +49,13 @@ describe("hkid", function () {
       const { candidate, expected } = param;
       const result = hkid.validate(candidate, { checkPrefix: false });
 
-      it(`should return ${expected} for validate("${candidate}", { checkPrefix: false })`, function () {
-        assert.equal(result, expected);
+      it(`should return ${expected} for validate("${candidate}", { checkPrefix: false })`, () => {
+        expect(result).toBe(expected);
       });
     });
   });
 
-  describe("random", function () {
+  describe("random", () => {
     [
       { candidate: hkid.random(), expected: true },
       { candidate: hkid.random(), expected: true },
@@ -69,46 +66,46 @@ describe("hkid", function () {
       const { candidate, expected } = param;
 
       const result0 = hkid.validate(candidate);
-      it(`should return ${expected} for validate(hkid.random()) where random() is ${candidate}`, function () {
-        assert.equal(result0, expected);
+      it(`should return ${expected} for validate(hkid.random()) where random() is ${candidate}`, () => {
+        expect(result0).toBe(expected);
       });
 
       const result1 = hkid.validate(candidate, { checkPrefix: true });
-      it(`should return ${expected} for validate(hkid.random(), { checkPrefix: true }) where random() is ${candidate}`, function () {
-        assert.equal(result1, expected);
+      it(`should return ${expected} for validate(hkid.random(), { checkPrefix: true }) where random() is ${candidate}`, () => {
+        expect(result1).toBe(expected);
       });
 
       const result2 = hkid.validate(candidate, { checkPrefix: false });
-      it(`should return ${expected} for validate(hkid.random(), { checkPrefix: false }) where random() is ${candidate}`, function () {
-        assert.equal(result2, expected);
+      it(`should return ${expected} for validate(hkid.random(), { checkPrefix: false }) where random() is ${candidate}`, () => {
+        expect(result2).toBe(expected);
       });
     });
   });
 });
 
-describe("__private__", function () {
-  const getValue = hkid.__get__("getValue");
-
-  describe("getValue", function () {
+describe("getValue", () => {
+  describe("valid inputs", () => {
     [
       { candidate: "5", expected: 5 },
       { candidate: "A", expected: 10 },
       { candidate: " ", expected: 36 },
     ].forEach((param) => {
       const { candidate, expected } = param;
-      const result = getValue(candidate);
+      const result = hkid.getValue(candidate);
 
-      it(`should return ${expected} for getValue("${candidate}")`, function () {
-        assert.equal(result, expected);
+      it(`should return ${expected} for getValue("${candidate}")`, () => {
+        expect(result).toBe(expected);
       });
     });
+  });
 
+  describe("invalid inputs", () => {
     [{ candidate: "@" }, { candidate: "a" }, { candidate: "" }].forEach(
       (param) => {
         const { candidate } = param;
 
-        it(`should throw error for getValue("${candidate}")`, function () {
-          assert.throws(() => getValue(candidate));
+        it(`should throw error for getValue("${candidate}")`, () => {
+          expect(() => hkid.getValue(candidate)).toThrow();
         });
       }
     );

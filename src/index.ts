@@ -92,7 +92,7 @@ const calculateCheckDigit = (candidate: string): string => {
 const A = "A".charCodeAt(0);
 const Z = "Z".charCodeAt(0);
 
-const getValue = (char: string): number => {
+export const getValue = (char: string): number => {
   const charCode = char.charCodeAt(0);
 
   if (char === " ") {
