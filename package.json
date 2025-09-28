@@ -39,5 +39,6 @@
   ],
   "keywords": [
     "hkid"
-  ]
+  ],
+  "type": "module"
 }
