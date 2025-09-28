@@ -22,6 +22,3 @@ jobs:
       - run: yarn
       - run: yarn lint
       - run: yarn test
-      - name: Run coverage
-        if: github.event_name != 'pull_request'
-        run: yarn coverage
