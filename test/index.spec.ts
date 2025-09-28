@@ -1,7 +1,7 @@
 import assert from "assert";
 import rewire from "rewire";
 
-const hkid = rewire(".");
+const hkid = rewire("../src/index");
 
 describe("hkid", function () {
   describe("validate", function () {
