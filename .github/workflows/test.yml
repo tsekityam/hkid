@@ -22,8 +22,6 @@ jobs:
       - run: yarn
       - run: yarn lint
       - run: yarn test
-      - name: Coveralls
+      - name: Run coverage
         if: github.event_name != 'pull_request'
-        uses: coverallsapp/github-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+        run: yarn coverage
